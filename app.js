@@ -601,7 +601,7 @@ const sendMessageToGemini = async (message) => {
         temperature: 0.9,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 4096, // Daha uzun cevaplar için artırıldı
+        maxOutputTokens: 8192, // Maksimum uzunluk - tam cevaplar için
       },
       safetySettings: [
         {
@@ -658,6 +658,7 @@ const sendMessageToGemini = async (message) => {
     if (data.candidates && data.candidates.length > 0) {
       const candidate = data.candidates[0];
       console.log('Candidate:', candidate);
+      console.log('Finish Reason:', candidate.finishReason);
       
       if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
         aiResponse = candidate.content.parts[0].text;
@@ -665,6 +666,11 @@ const sendMessageToGemini = async (message) => {
       } else {
         console.error('Parts bulunamadı:', candidate.content);
         throw new Error('AI cevabında metin bulunamadı');
+      }
+      
+      // Eğer cevap token limiti yüzünden kesildiyse kullanıcıyı bilgilendir
+      if (candidate.finishReason === 'MAX_TOKENS') {
+        aiResponse += '\n\n⚠️ (Cevap çok uzun olduğu için kesintiye uğradı. Devam etmesini isterseniz "devam et" yazın)';
       }
     } else {
       console.error('Candidates bulunamadı:', data);
