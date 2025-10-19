@@ -114,7 +114,7 @@ const displayBookInfo = () => {
         document.getElementById('book-old-price').innerText = book.oldPrice ? book.oldPrice + ' TL' : '';
         document.title = book.name + ' | Nova Bookshop';
 
-        document.getElementById('book-stars').innerHTML = createBookStars(book.starRate);
+        document.getElementById('book-stars').innerHTML = createDetailBookStars(book.starRate);
         console.log('[BookDetails] Kitap bilgileri DOM\'a yazıldı');
     } else {
         console.error('[BookDetails] Kitap bulunamadı! bookId:', bookId);
@@ -122,7 +122,7 @@ const displayBookInfo = () => {
     }
 };
 
-const createBookStars = (starRate) => {
+const createDetailBookStars = (starRate) => {
     let starRateHtml = "";
     for (let i = 1; i <= 5; i++) {
         if (Math.round(starRate) >= i)
@@ -156,7 +156,7 @@ const displayBookComments = () => {
                     <div class="comment-date">${comment.date}</div>
                 </div>
                 <div class="comment-rating">
-                    ${createCommentStars(comment.rating)}
+                    ${createDetailCommentStars(comment.rating)}
                 </div>
             </div>
             <div class="comment-text">
@@ -166,7 +166,7 @@ const displayBookComments = () => {
     `).join('');
 };
 
-const createCommentStars = (rating) => {
+const createDetailCommentStars = (rating) => {
     let stars = '';
     for (let i = 1; i <= 5; i++) {
         if (i <= rating) {
