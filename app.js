@@ -336,7 +336,9 @@ const updateUserDisplay = () => {
       userIcon.style.fontWeight = 'bold';
       userIcon.style.color = 'var(--purple)';
     } else {
-      userIcon.innerHTML = `<i class="bi bi-person"></i>`;
+      // Duplicate icon yaratmamak için sadece class'ı kontrol et
+      userIcon.innerHTML = '';
+      userIcon.className = 'bi bi-person';
       userIcon.title = 'Giriş Yap / Kayıt Ol';
       userIcon.style.fontWeight = 'normal';
     }
