@@ -877,4 +877,272 @@ header h1 {
   background: var(--purple);
 }
 
+/* ===================================
+   RESPONSIVE DESIGN - MOBILE
+   =================================== */
+
+/* Tablet ve altı (768px ve altı) */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    flex-wrap: wrap;
+    padding: 10px 15px !important;
+  }
+
+  .navbar-brand {
+    font-size: 18px !important;
+  }
+
+  .navbar-brand img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+
+  .menu li a {
+    font-size: 13px !important;
+    padding: 5px 8px !important;
+  }
+
+  .menu__icons {
+    gap: 10px !important;
+  }
+
+  .menu__icons li i {
+    font-size: 18px !important;
+  }
+
+  /* Search Input */
+  .menu__icons #search-input {
+    width: 150px !important;
+  }
+
+  /* Slider */
+  .slider {
+    height: 250px !important;
+  }
+
+  .slider h2 {
+    font-size: 24px !important;
+  }
+
+  .slider p {
+    font-size: 14px !important;
+  }
+
+  /* Filter Section */
+  .filter {
+    min-height: auto !important;
+    padding: 15px !important;
+  }
+
+  .filter__background {
+    padding: 20px 10px !important;
+  }
+
+  .filter li {
+    font-size: 14px !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Book Cards */
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    padding: 15px !important;
+  }
+
+  .book {
+    padding: 10px !important;
+  }
+
+  .book img {
+    height: 180px !important;
+  }
+
+  .book h3 {
+    font-size: 14px !important;
+  }
+
+  .book p {
+    font-size: 12px !important;
+  }
+
+  .book button {
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Footer */
+  footer {
+    padding: 20px 15px !important;
+  }
+
+  .footer__content {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .footer__section {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .footer__section h3 {
+    font-size: 16px !important;
+  }
+
+  .footer__section p,
+  .footer__section ul li {
+    font-size: 13px !important;
+  }
+
+  /* AI Chat */
+  .ai__chat {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  .ai__header h3 {
+    font-size: 16px !important;
+  }
+
+  /* Basket Modal */
+  .basket__modal {
+    width: 95% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+  }
+
+  /* Book Details Page */
+  .book-detail-container {
+    flex-direction: column !important;
+    padding: 15px !important;
+  }
+
+  .book-detail-image {
+    max-width: 100% !important;
+  }
+
+  .book-detail-info h1 {
+    font-size: 22px !important;
+  }
+
+  .book-detail-info h2 {
+    font-size: 18px !important;
+  }
+
+  .book-detail-price {
+    font-size: 20px !important;
+  }
+
+  /* Comments Section */
+  .comments-section {
+    padding: 15px !important;
+  }
+
+  .comment {
+    padding: 12px !important;
+  }
+
+  .comment-author {
+    font-size: 13px !important;
+  }
+
+  .comment-text {
+    font-size: 13px !important;
+  }
+}
+
+/* Mobil (480px ve altı) */
+@media (max-width: 480px) {
+  /* Navbar - daha da küçült */
+  .navbar-brand {
+    font-size: 16px !important;
+  }
+
+  .navbar-brand img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .menu {
+    width: 100%;
+    justify-content: center !important;
+  }
+
+  .menu li a {
+    font-size: 12px !important;
+    padding: 4px 6px !important;
+  }
+
+  .menu__icons #search-input {
+    width: 120px !important;
+    font-size: 12px !important;
+  }
+
+  /* Slider */
+  .slider {
+    height: 200px !important;
+  }
+
+  .slider h2 {
+    font-size: 20px !important;
+  }
+
+  .slider p {
+    font-size: 12px !important;
+    display: none; /* Çok küçük ekranlarda paragrafı gizle */
+  }
+
+  /* Book Cards - tek sütun */
+  .book-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+    padding: 10px !important;
+  }
+
+  .book {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* Filter - daha kompakt */
+  .filter__background {
+    padding: 15px 5px !important;
+  }
+
+  .filter li {
+    font-size: 13px !important;
+  }
+
+  /* Footer */
+  .footer__section h3 {
+    font-size: 14px !important;
+  }
+
+  .footer__section p,
+  .footer__section ul li {
+    font-size: 12px !important;
+  }
+
+  /* Book Details */
+  .book-detail-info h1 {
+    font-size: 20px !important;
+  }
+
+  .book-detail-info h2 {
+    font-size: 16px !important;
+  }
+
+  .book-detail-price {
+    font-size: 18px !important;
+  }
+}
+
 
