@@ -21,13 +21,12 @@
             <li><a href="gizlilik.html">GİZLİLİK</a></li>
         </ul>
         <ul class="menu__icons">
-            <li><i class="bi bi-person" id="user-icon"></i></li>
+            <li class="search">
+                <i class="bi bi-search"onclick="searchBooks()"></i>
+                <input type="text" id="search-input" placeholder="Ara...">
+            </li>
             <li class="ai__icon" onclick="toggleAIChat()" title="AI Asistan">
                 <i class="bi bi-flower2"></i>
-            </li>
-            <li class="search">
-                <i class="bi bi-search" onclick="searchBooks()"></i>
-                <input type="text" id="search-input" placeholder="Ara...">
             </li>
             <li class="basket__icon" onclick="toggleModal()">
                 <i class="bi bi-bag"></i>
