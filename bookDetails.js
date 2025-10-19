@@ -76,34 +76,34 @@ const sampleComments = [
     }
 ];
 
-const getBooks = async () => {
+const getBookDetails = async () => {
     try {
-        console.log('Kitaplar yükleniyor...');
+        console.log('[BookDetails] Kitaplar yükleniyor...');
         const res = await fetch("./products.json");
-        console.log('Fetch response:', res.status);
+        console.log('[BookDetails] Fetch response:', res.status);
         
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
         }
         
         const books = await res.json();
-        console.log('Kitaplar yüklendi:', books.length, 'kitap');
+        console.log('[BookDetails] Kitaplar yüklendi:', books.length, 'kitap');
         detailBookList = books;
-        displayBookDetails();
-        displayComments();
+        displayBookInfo();
+        displayBookComments();
     } catch (error) {
-        console.error('Kitaplar yüklenirken hata:', error);
+        console.error('[BookDetails] Kitaplar yüklenirken hata:', error);
         toastr.error('Kitap bilgileri yüklenemedi!');
     }
 };
 
-const displayBookDetails = () => {
+const displayBookInfo = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
-    console.log('URL parametrelerinden bookId:', bookId);
+    console.log('[BookDetails] URL parametrelerinden bookId:', bookId);
     
     const book = detailBookList.find(book => book.id == bookId);
-    console.log('Bulunan kitap:', book);
+    console.log('[BookDetails] Bulunan kitap:', book);
 
     if (book) {
         document.getElementById('book-img').src = book.imgSource;
@@ -115,9 +115,9 @@ const displayBookDetails = () => {
         document.title = book.name + ' | Nova Bookshop';
 
         document.getElementById('book-stars').innerHTML = createBookStars(book.starRate);
-        console.log('Kitap bilgileri DOM\'a yazıldı');
+        console.log('[BookDetails] Kitap bilgileri DOM\'a yazıldı');
     } else {
-        console.error('Kitap bulunamadı! bookId:', bookId);
+        console.error('[BookDetails] Kitap bulunamadı! bookId:', bookId);
         toastr.error('Kitap bulunamadı!');
     }
 };
@@ -132,7 +132,7 @@ const createBookStars = (starRate) => {
     return starRateHtml;
 };
 
-const displayComments = () => {
+const displayBookComments = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
     
@@ -228,5 +228,6 @@ const addBookToBasket = () => {
 
 // Sayfa yüklendiğinde kitap bilgilerini getir
 document.addEventListener('DOMContentLoaded', () => {
-    getBooks();
+    console.log('[BookDetails] Sayfa yüklendi, kitap detayları getiriliyor...');
+    getBookDetails();
 });
