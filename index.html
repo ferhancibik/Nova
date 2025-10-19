@@ -35,10 +35,13 @@
             <li><a href="gizlilik.html">GİZLİLİK</a></li>
         </ul>
         <ul class="menu__icons">
-          <li><i class="bi bi-person" id="user-icon"></i></li>
+            <li><i class="bi bi-person" id="user-icon"></i></li>
             <li class="search">
                 <i class="bi bi-search"onclick="searchBooks()"></i>
                 <input type="text" id="search-input" placeholder="Ara...">
+            </li>
+            <li class="ai__icon" onclick="toggleAIChat()" title="AI Asistan">
+                <i class="bi bi-robot"></i>
             </li>
             <li class="basket__icon" onclick="toggleModal()">
                 <i class="bi bi-bag"></i>
@@ -90,6 +93,35 @@
             <div class="basket__total">
                 <span class="fw-bold mb-3 fs-4 total__price"></span>
                 <button class="btn__purple"id="checkoutButton" ><a href="payment.html">CHECKOUT</a></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ai__chat">
+        <div class="ai__chat-container">
+            <div class="ai__chat-header">
+                <div class="ai__header-content">
+                    <i class="bi bi-robot"></i>
+                    <div>
+                        <h3>Nova AI Asistan</h3>
+                        <span>Kitap önerileri ve sorularınız için buradayım!</span>
+                    </div>
+                </div>
+                <i class="bi bi-x-lg" onclick="toggleAIChat()"></i>
+            </div>
+            <div class="ai__messages">
+                <div class="ai__message ai-message welcome-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        Merhaba! Ben Nova AI asistanınız. Size kitap önerileri yapabilir, kitaplar hakkında konuşabilir ve okuma zevkinize uygun eserler bulabilirim. Nasıl yardımcı olabilirim? 📚✨
+                    </div>
+                </div>
+            </div>
+            <div class="ai__input-container">
+                <input type="text" class="ai__input" placeholder="Mesajınızı yazın..." />
+                <button class="ai__send-btn" onclick="handleAISubmit()">
+                    <i class="bi bi-send-fill"></i>
+                </button>
             </div>
         </div>
     </div>

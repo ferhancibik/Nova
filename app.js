@@ -541,3 +541,164 @@ window.onload = function () {
     }
   }, 100);
 };
+
+// ============================================
+// GEMINI AI ASISTAN
+// ============================================
+
+const GEMINI_API_KEY = 'AIzaSyDaR7mXRU2bvO_NjhbLDHfrkCRPnMG5H1E';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+
+let chatHistory = [];
+
+const toggleAIChat = () => {
+  const aiChatEl = document.querySelector(".ai__chat");
+  if (aiChatEl) {
+    aiChatEl.classList.toggle("active");
+  }
+};
+
+const sendMessageToGemini = async (message) => {
+  try {
+    // Kullanıcı mesajını geçmişe ekle
+    chatHistory.push({
+      role: 'user',
+      message: message
+    });
+    
+    // Kullanıcı mesajını ekranda göster
+    displayMessage(message, 'user');
+    
+    // Loading göster
+    showTypingIndicator();
+    
+    // Kitaplar hakkında context oluştur
+    const booksContext = bookList.map(book => 
+      `${book.name} - ${book.author} (${book.type}): ${book.description}`
+    ).join('\n');
+    
+    const systemPrompt = `Sen Nova Bookshop kitap mağazasının AI asistanısın. Adın "Nova AI". 
+Kullanıcılara kitap önerileri yapıyorsun, kitaplar hakkında yorum yapıyorsun ve onların okuma zevklerine uygun kitaplar buluyorsun.
+İşte mağazamızdaki kitaplar:
+
+${booksContext}
+
+Kullanıcıya her zaman dostça, yardımsever ve bilgili bir şekilde cevap ver. 
+Eğer kullanıcı bir kitap sevdiğini söylerse, yukarıdaki listeden ona benzer kitaplar öner.
+Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama yap.`;
+    
+    const requestBody = {
+      contents: [{
+        parts: [{
+          text: systemPrompt + "\n\nKullanıcı: " + message
+        }]
+      }]
+    };
+    
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+    
+    if (!response.ok) {
+      throw new Error('API isteği başarısız oldu');
+    }
+    
+    const data = await response.json();
+    const aiResponse = data.candidates[0].content.parts[0].text;
+    
+    // Loading'i kaldır
+    removeTypingIndicator();
+    
+    // AI cevabını göster
+    displayMessage(aiResponse, 'ai');
+    
+    // AI cevabını geçmişe ekle
+    chatHistory.push({
+      role: 'ai',
+      message: aiResponse
+    });
+    
+  } catch (error) {
+    console.error('Gemini API Hatası:', error);
+    removeTypingIndicator();
+    displayMessage('Üzgünüm, şu anda bir hata oluştu. Lütfen tekrar deneyin.', 'ai');
+  }
+};
+
+const displayMessage = (message, sender) => {
+  const chatMessagesEl = document.querySelector('.ai__messages');
+  if (!chatMessagesEl) return;
+  
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('ai__message', sender === 'user' ? 'user-message' : 'ai-message');
+  
+  const avatar = sender === 'user' ? '👤' : '🤖';
+  const formattedMessage = message.replace(/\n/g, '<br>');
+  
+  messageDiv.innerHTML = `
+    <div class="message-avatar">${avatar}</div>
+    <div class="message-content">${formattedMessage}</div>
+  `;
+  
+  chatMessagesEl.appendChild(messageDiv);
+  chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+};
+
+const showTypingIndicator = () => {
+  const chatMessagesEl = document.querySelector('.ai__messages');
+  if (!chatMessagesEl) return;
+  
+  const typingDiv = document.createElement('div');
+  typingDiv.classList.add('ai__message', 'ai-message', 'typing-indicator');
+  typingDiv.id = 'typingIndicator';
+  typingDiv.innerHTML = `
+    <div class="message-avatar">🤖</div>
+    <div class="message-content">
+      <div class="typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  `;
+  
+  chatMessagesEl.appendChild(typingDiv);
+  chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+};
+
+const removeTypingIndicator = () => {
+  const typingIndicator = document.getElementById('typingIndicator');
+  if (typingIndicator) {
+    typingIndicator.remove();
+  }
+};
+
+const handleAISubmit = (event) => {
+  if (event) event.preventDefault();
+  
+  const inputEl = document.querySelector('.ai__input');
+  if (!inputEl) return;
+  
+  const message = inputEl.value.trim();
+  if (message) {
+    sendMessageToGemini(message);
+    inputEl.value = '';
+  }
+};
+
+// Enter tuşu ile mesaj gönderme
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const inputEl = document.querySelector('.ai__input');
+    if (inputEl) {
+      inputEl.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleAISubmit();
+        }
+      });
+    }
+  }, 1000);
+});
