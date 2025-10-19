@@ -631,11 +631,19 @@ Her zaman Türkçe cevap ver.`;
     });
     
     console.log('API Response Status:', response.status);
+    console.log('API Response Headers:', [...response.headers.entries()]);
     
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('API Error:', errorData);
-      throw new Error(`API Error: ${errorData.error?.message || 'Bilinmeyen hata'}`);
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { error: { message: errorText } };
+      }
+      console.error('API Error Parsed:', errorData);
+      throw new Error(`API Error: ${errorData.error?.message || errorText || 'Bilinmeyen hata'}`);
     }
     
     const data = await response.json();
