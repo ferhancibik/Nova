@@ -547,7 +547,7 @@ window.onload = function () {
 // ============================================
 
 const GEMINI_API_KEY = 'AIzaSyDaR7mXRU2bvO_NjhbLDHfrkCRPnMG5H1E';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 let chatHistory = [];
 
@@ -599,7 +599,25 @@ Her zaman Türkçe cevap ver.`;
         topK: 40,
         topP: 0.95,
         maxOutputTokens: 1024,
-      }
+      },
+      safetySettings: [
+        {
+          category: "HARM_CATEGORY_HARASSMENT",
+          threshold: "BLOCK_NONE"
+        },
+        {
+          category: "HARM_CATEGORY_HATE_SPEECH",
+          threshold: "BLOCK_NONE"
+        },
+        {
+          category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          threshold: "BLOCK_NONE"
+        },
+        {
+          category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+          threshold: "BLOCK_NONE"
+        }
+      ]
     };
     
     console.log('Gemini API\'ye istek gönderiliyor...');
