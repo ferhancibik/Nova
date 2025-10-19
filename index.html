@@ -132,7 +132,7 @@
             bookList.innerHTML = '';
             books.forEach(book => {
                 const bookCard = `
-                    <div class="book__card">
+                    <div class="book__card" onclick="window.location.href='bookDetails.html?bookId=${book.id}'" style="cursor: pointer;">
                         <img src="${book.imgSource}" alt="${book.name}">
                         <h3 class="book__title">${book.name}</h3>
                         <p class="book__author">${book.author}</p>
