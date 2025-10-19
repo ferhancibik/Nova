@@ -79,6 +79,11 @@
   transition: all 0.3s ease;
 }
 
+/* User icon duplicate'i gizle - menu__icons içinde bi-person içeren ikinci ve sonraki li'leri gizle */
+.menu__icons li:has(.bi-person) ~ li:has(.bi-person) {
+  display: none !important;
+}
+
 .menu__icons li i:hover {
   color: var(--purple) !important;
 }
