@@ -67,19 +67,28 @@
   margin: 0 10px;
 }
 
-.menu__icons li {
-  color: var(--pink);
-}
 .menu__icons {
-  display: flex;
+  display: flex !important;
   align-items: center;
+  visibility: visible !important;
+  opacity: 1 !important;
+  list-style-type: none;
 }
 
 .menu__icons li {
   list-style: none;
   margin: 0 10px;
-  display: flex;
+  display: flex !important;
   align-items: center;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.menu__icons li i {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 1.2rem;
 }
 
 .menu__icons .search {
