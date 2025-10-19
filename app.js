@@ -578,22 +578,31 @@ const sendMessageToGemini = async (message) => {
     ).join('\n');
     
     const systemPrompt = `Sen Nova Bookshop kitap mağazasının AI asistanısın. Adın "Nova AI". 
-Kullanıcılara kitap önerileri yapıyorsun, kitaplar hakkında yorum yapıyorsun ve onların okuma zevklerine uygun kitaplar buluyorsun.
+Kullanıcılara Türkçe olarak kitap önerileri yapıyorsun, kitaplar hakkında yorum yapıyorsun ve onların okuma zevklerine uygun kitaplar buluyorsun.
 İşte mağazamızdaki kitaplar:
 
 ${booksContext}
 
 Kullanıcıya her zaman dostça, yardımsever ve bilgili bir şekilde cevap ver. 
 Eğer kullanıcı bir kitap sevdiğini söylerse, yukarıdaki listeden ona benzer kitaplar öner.
-Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama yap.`;
+Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama yap.
+Her zaman Türkçe cevap ver.`;
     
     const requestBody = {
       contents: [{
         parts: [{
-          text: systemPrompt + "\n\nKullanıcı: " + message
+          text: systemPrompt + "\n\nKullanıcı: " + message + "\n\nLütfen Türkçe cevap ver."
         }]
-      }]
+      }],
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 1024,
+      }
     };
+    
+    console.log('Gemini API\'ye istek gönderiliyor...');
     
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
@@ -603,11 +612,21 @@ Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama y
       body: JSON.stringify(requestBody)
     });
     
+    console.log('API Response Status:', response.status);
+    
     if (!response.ok) {
-      throw new Error('API isteği başarısız oldu');
+      const errorData = await response.json();
+      console.error('API Error:', errorData);
+      throw new Error(`API Error: ${errorData.error?.message || 'Bilinmeyen hata'}`);
     }
     
     const data = await response.json();
+    console.log('API Response:', data);
+    
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      throw new Error('API\'den geçersiz yanıt alındı');
+    }
+    
     const aiResponse = data.candidates[0].content.parts[0].text;
     
     // Loading'i kaldır
@@ -625,7 +644,18 @@ Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama y
   } catch (error) {
     console.error('Gemini API Hatası:', error);
     removeTypingIndicator();
-    displayMessage('Üzgünüm, şu anda bir hata oluştu. Lütfen tekrar deneyin.', 'ai');
+    
+    // Daha detaylı hata mesajı
+    let errorMessage = 'Üzgünüm, şu anda bir hata oluştu. ';
+    if (error.message.includes('API Error')) {
+      errorMessage += 'API bağlantı hatası. Lütfen API key\'inizi kontrol edin.';
+    } else if (error.message.includes('fetch')) {
+      errorMessage += 'İnternet bağlantınızı kontrol edin.';
+    } else {
+      errorMessage += 'Lütfen tekrar deneyin.';
+    }
+    
+    displayMessage(errorMessage, 'ai');
   }
 };
 
