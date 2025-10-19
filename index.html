@@ -22,7 +22,7 @@
             <li><a href="gizlilik.html">GİZLİLİK</a></li>
         </ul>
         <ul class="menu__icons">
-            <li><i class="bi bi-person" id="user-icon"></i></li>
+            <li id="user-icon"><i class="bi bi-person"></i></li>
             <li class="search">
                 <i class="bi bi-search"onclick="searchBooks()"></i>
                 <input type="text" id="search-input" placeholder="Ara...">
@@ -115,7 +115,7 @@
     <script src="./assets/jquery/jquery.min.js"></script>
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="./assets/toastr/toastr.min.js"></script>
-    <script src="app.js?v=2.4"></script>
+    <script src="app.js?v=2.5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('products.json')

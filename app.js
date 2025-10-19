@@ -330,17 +330,19 @@ const updateUserDisplay = () => {
   
   if (userIcon) {
     if (currentUser) {
+      // Kullanıcı giriş yapmışsa adını göster
       userIcon.innerHTML = currentUser.username;
       userIcon.style.cursor = 'pointer';
       userIcon.title = 'Çıkış Yap';
       userIcon.style.fontWeight = 'bold';
       userIcon.style.color = 'var(--purple)';
+      userIcon.style.fontSize = '1rem';
     } else {
-      // Duplicate icon yaratmamak için sadece class'ı kontrol et
-      userIcon.innerHTML = '';
-      userIcon.className = 'bi bi-person';
+      // Giriş yapılmamışsa sadece icon göster - DUPLICATE YARATMA!
+      userIcon.innerHTML = '<i class="bi bi-person"></i>';
       userIcon.title = 'Giriş Yap / Kayıt Ol';
       userIcon.style.fontWeight = 'normal';
+      userIcon.style.fontSize = '';
     }
   }
 };
