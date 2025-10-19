@@ -197,7 +197,7 @@ const getRandomComments = (bookId, count) => {
     return shuffled.slice(0, count);
 };
 
-const addBookToBasket = () => {
+const addDetailBookToBasket = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
     let findedBook = detailBookList.find((book) => book.id == bookId);
