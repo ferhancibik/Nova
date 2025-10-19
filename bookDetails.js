@@ -230,9 +230,9 @@ const BookDetails = {
 };
 
 // Global fonksiyon - HTML'den çağrılabilmesi için
-function addBookToBasket() {
+window.addBookToBasketDetail = function() {
     BookDetails.addToBasket();
-}
+};
 
 // Sayfa yüklendiğinde başlat
 document.addEventListener('DOMContentLoaded', () => {
