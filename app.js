@@ -572,33 +572,20 @@ const sendMessageToGemini = async (message) => {
     // Loading göster
     showTypingIndicator();
     
-    // Kitaplar hakkında context oluştur
-    const booksContext = bookList.map(book => 
-      `${book.name} - ${book.author} (${book.type}): ${book.description}`
-    ).join('\n');
-    
-    const systemPrompt = `Sen Nova Bookshop kitap mağazasının AI asistanısın. Adın "Nova AI". 
-Kullanıcılara Türkçe olarak kitap önerileri yapıyorsun, kitaplar hakkında yorum yapıyorsun ve onların okuma zevklerine uygun kitaplar buluyorsun.
-İşte mağazamızdaki kitaplar:
-
-${booksContext}
-
-Kullanıcıya her zaman dostça, yardımsever ve bilgili bir şekilde cevap ver. 
-Eğer kullanıcı bir kitap sevdiğini söylerse, yukarıdaki listeden ona benzer kitaplar öner.
-Kitap önermeden önce kullanıcının zevkini anlamaya çalış ve açıklama yap.
-Her zaman Türkçe cevap ver.`;
+    // Kısa ve öz sistem mesajı
+    const systemPrompt = `Sen Nova Bookshop'un AI asistanısın. Kitap önerileri yap, kitaplar hakkında konuş. Türkçe cevap ver.`;
     
     const requestBody = {
       contents: [{
         parts: [{
-          text: systemPrompt + "\n\nKullanıcı: " + message + "\n\nLütfen Türkçe cevap ver."
+          text: systemPrompt + "\n\nKullanıcı: " + message
         }]
       }],
       generationConfig: {
-        temperature: 0.7,
+        temperature: 0.9,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 1024,
+        maxOutputTokens: 2048,
       },
       safetySettings: [
         {
@@ -648,30 +635,28 @@ Her zaman Türkçe cevap ver.`;
     
     const data = await response.json();
     console.log('API Response:', data);
-    console.log('API Response JSON:', JSON.stringify(data, null, 2));
     
-    // Farklı response formatlarını kontrol et
-    let aiResponse;
+    // Response parsing
+    let aiResponse = '';
     
-    if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
-      // Standart format
-      aiResponse = data.candidates[0].content.parts[0].text;
-    } else if (data.text) {
-      // Alternatif format 1
-      aiResponse = data.text;
-    } else if (data.response) {
-      // Alternatif format 2
-      aiResponse = data.response;
-    } else if (data.output) {
-      // Alternatif format 3
-      aiResponse = data.output;
+    if (data.candidates && data.candidates.length > 0) {
+      const candidate = data.candidates[0];
+      console.log('Candidate:', candidate);
+      
+      if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
+        aiResponse = candidate.content.parts[0].text;
+        console.log('AI Response Text:', aiResponse);
+      } else {
+        console.error('Parts bulunamadı:', candidate.content);
+        throw new Error('AI cevabında metin bulunamadı');
+      }
     } else {
-      console.error('Beklenmeyen response formatı:', data);
-      throw new Error('API\'den geçersiz yanıt alındı. Response: ' + JSON.stringify(data));
+      console.error('Candidates bulunamadı:', data);
+      throw new Error('API\'den geçersiz yanıt alındı');
     }
     
-    if (!aiResponse) {
-      throw new Error('AI cevabı boş geldi');
+    if (!aiResponse || aiResponse.trim() === '') {
+      throw new Error('AI cevabı boş');
     }
     
     // Loading'i kaldır
