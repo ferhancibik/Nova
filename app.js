@@ -560,14 +560,30 @@ const toggleAIChat = () => {
 
 const sendMessageToGemini = async (message) => {
   try {
+    // Mesaj uzunluğunu sınırla (yaklaşık 500 kelime = ~750 token)
+    const maxLength = 3000; // karakter
+    let userMessage = message;
+    let messageWasTruncated = false;
+    
+    if (message.length > maxLength) {
+      userMessage = message.substring(0, maxLength) + '...';
+      messageWasTruncated = true;
+      console.log('Mesaj çok uzun, kısaltıldı:', message.length, '→', maxLength);
+    }
+    
     // Kullanıcı mesajını geçmişe ekle
     chatHistory.push({
       role: 'user',
-      message: message
+      message: userMessage
     });
     
     // Kullanıcı mesajını ekranda göster
-    displayMessage(message, 'user');
+    displayMessage(message, 'user'); // Orijinal mesajı göster
+    
+    // Eğer mesaj kısaltıldıysa kullanıcıya bildir
+    if (messageWasTruncated) {
+      displayMessage('ℹ️ Mesajınız çok uzun olduğu için kısaltıldı. Lütfen daha kısa mesajlar gönderin.', 'ai');
+    }
     
     // Loading göster
     showTypingIndicator();
@@ -578,14 +594,14 @@ const sendMessageToGemini = async (message) => {
     const requestBody = {
       contents: [{
         parts: [{
-          text: systemPrompt + "\n\nKullanıcı: " + message
+          text: systemPrompt + "\n\nKullanıcı: " + userMessage
         }]
       }],
       generationConfig: {
         temperature: 0.9,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 2048,
+        maxOutputTokens: 4096, // Daha uzun cevaplar için artırıldı
       },
       safetySettings: [
         {
