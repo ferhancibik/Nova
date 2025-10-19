@@ -70,10 +70,19 @@
         
         <input type="text" id="apiKey" placeholder="API Key'inizi buraya yapıştırın" value="AIzaSyDaR7mXRU2bvO_NjhbLDHfrkCRPnMG5H1E">
         
+        <h3>v1beta API:</h3>
         <div style="margin: 20px 0;">
-            <button onclick="testGeminiPro()">Test: gemini-pro</button>
-            <button onclick="testGemini15Flash()">Test: gemini-1.5-flash</button>
-            <button onclick="testGemini15Pro()">Test: gemini-1.5-pro</button>
+            <button onclick="testGeminiPro()">gemini-pro</button>
+            <button onclick="testGemini15Flash()">gemini-1.5-flash</button>
+            <button onclick="testGemini15Pro()">gemini-1.5-pro</button>
+            <button onclick="testGemini25Flash()" style="background: #ff6b35;">gemini-2.5-flash 🆕</button>
+        </div>
+        
+        <h3>v1 API:</h3>
+        <div style="margin: 20px 0;">
+            <button onclick="testGemini15FlashV1()">gemini-1.5-flash (v1)</button>
+            <button onclick="testGemini15ProV1()">gemini-1.5-pro (v1)</button>
+            <button onclick="testGemini25FlashV1()" style="background: #ff6b35;">gemini-2.5-flash (v1) 🆕</button>
         </div>
         
         <div id="result"></div>
@@ -174,6 +183,23 @@
 
         function testGemini15Pro() {
             testAPI('gemini-1.5-pro', 'v1beta');
+        }
+
+        function testGemini25Flash() {
+            testAPI('gemini-2.5-flash', 'v1beta');
+        }
+
+        // v1 API Tests
+        function testGemini15FlashV1() {
+            testAPI('gemini-1.5-flash', 'v1');
+        }
+
+        function testGemini15ProV1() {
+            testAPI('gemini-1.5-pro', 'v1');
+        }
+
+        function testGemini25FlashV1() {
+            testAPI('gemini-2.5-flash', 'v1');
         }
 
         function showResult(message, type) {
