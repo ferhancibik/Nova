@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova | Gizlilik Politikası</title>
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/toastr/toastr.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" />
+    <style>
+        <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+/* Navbar Stilleri */
+.navbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 120px !important;
+    width: 80% !important;
+    margin-left: 10% !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.navbar-brand .logo {
+    width: 100px !important;
+    height: auto !important;
+    margin-right: 5px !important;
+}
+
+.navbar-brand .title {
+    font-weight: bold !important;
+    color: var(--purple) !important;
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+}
+
+.menu {
+    list-style-type: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    font-size: 20px !important;
+    cursor: pointer !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.menu li {
+    margin: 0 10px !important;
+}
+
+.menu a {
+    text-decoration: none !important;
+    color: var(--pink) !important;
+}
+
+.menu .active {
+    color: var(--pink) !important;
+    font-weight: bold !important;
+}
+
+.menu__icons {
+    list-style-type: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    font-size: 20px !important;
+    color: var(--pink) !important;
+    cursor: pointer !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.menu__icons li {
+    margin: 0 10px !important;
+    list-style: none !important;
+}
+
+.menu__icons .search {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.menu__icons #search-input {
+    display: inline-block !important;
+    padding: 5px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    outline: none !important;
+    margin-left: 5px !important;
+    width: 150px !important;
+}
+
+.basket__icon {
+    position: relative !important;
+}
+
+.basket__count {
+    position: absolute !important;
+    right: -0.7rem !important;
+    bottom: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    background-color: var(--black) !important;
+    border-radius: 50% !important;
+    color: white !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+
+/* İçerik Stilleri */
+.privacy-section {
+    background: linear-gradient(135deg, #f5f3ff 0%, #fef3ff 100%);
+    padding: 60px 20px;
+    min-height: calc(100vh - 120px);
+}
+
+.privacy-title {
+    font-weight: bold;
+    font-size: 3rem;
+    color: var(--purple);
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.privacy-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    border-radius: 2px;
+}
+
+.privacy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.privacy-content {
+    background: white;
+    padding: 60px 80px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(153, 113, 206, 0.2);
+}
+
+.privacy-content h2 {
+    color: var(--pink);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f5f3ff;
+}
+
+.privacy-content h2:first-of-type {
+    margin-top: 0;
+}
+
+.privacy-content p {
+    line-height: 2;
+    color: #5c6a79;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.privacy-content ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 20px 0;
+}
+
+.privacy-content ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    color: #5c6a79;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.privacy-content ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.contact-info {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+</style>
+</head>
+<body>
+   
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="./assets/images/logo2.png" alt="Nova Logo" class="logo">
+        <h2 class="title">Nova Bookshop</h2>
+    </div>
+    <ul class="menu">
+        <li><a href="index.html">KİTAPLAR</a></li>
+        <li><a href="yorum.html">YORUM</a></li>
+        <li><a href="hakkimizda.html">HAKKIMIZDA</a></li>
+        <li><a href="gizlilik.html" class="active">GİZLİLİK</a></li>
+    </ul>
+    <ul class="menu__icons">
+        <li><i class="bi bi-person" id="user-icon"></i></li>
+        <li class="search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="search-input" placeholder="Ara...">
+        </li>
+        <li class="basket__icon" onclick="toggleModal()">
+            <i class="bi bi-bag"></i>
+            <span class="basket__count"></span>
+        </li>
+    </ul>
+</nav>
+
+<section class="privacy-section">
+    <h1 class="privacy-title">Gizlilik Politikamız</h1>
+    <div class="privacy-container">
+        <div class="privacy-content">
+<h1>Gizlilik Politikamız</h1>
+
+<p>Bu gizlilik politikası, Nova Bookshop web sitesinin ("biz", "bizim" veya "bizim") ziyaretçilerinin gizliliğine ilişkin bilgileri toplama, kullanma, saklama ve ifşa etme biçimimizi açıklar. Bu politika, web sitemizi ziyaret eden herkesin bilgilendirilmesi amacıyla hazırlanmıştır.</p>
+
+<h2>Toplanan Bilgiler</h2>
+
+<p>Web sitemizi ziyaret ederken, kişisel olarak tanımlanabilir bilgiler toplamayız. Ancak, sitemizi ziyaret edenlerin tarayıcıları ve sunucuları tarafından sağlanan standart log dosyalarında bulunan bazı bilgileri toplamak ve kullanmak mümkündür. Bu bilgiler arasında IP adresleri, tarayıcı türleri, İnternet Servis Sağlayıcıları (ISP'ler), ziyaret tarihleri ve saatleri, web sayfaları üzerinde geçirilen süreler ve bu sayfalara giriş ve çıkışları içeren bilgiler bulunabilir.</p>
+
+<h2>Cookies Kullanımı</h2>
+
+<p>Çerezler (cookies), web sitemizi ziyaret eden kullanıcıların tarayıcılarında saklanan küçük metin dosyalarıdır. Bu çerezler, tercihlerinizi hatırlamamıza ve web sitemizin performansını izlememize yardımcı olur. Çerezlerin kabul edilmesi, web sitemizi daha etkili hale getirmemize yardımcı olabilir, ancak çerezleri reddetme seçeneği de mevcuttur.</p>
+
+<h2>Bilgilerin Kullanımı</h2>
+
+<p>Topladığımız bilgiler, aşağıdaki amaçlarla kullanılabilir:</p>
+
+<ul>
+    <li>Ziyaretçilerin web sitemizi kullanımını izlemek ve analiz etmek</li>
+    <li>Ziyaretçilerin tercihlerini anlamak ve böylece kullanıcı deneyimini geliştirmek</li>
+    <li>Servislerimizi, içeriklerimizi ve reklamlarımızı kişiselleştirmek</li>
+    <li>Reklamcılıkta ve pazarlama faaliyetlerinde kullanılmak</li>
+</ul>
+
+<h2>Üçüncü Taraf Bağlantıları</h2>
+
+<p>Web sitemizde üçüncü taraf web sitelerine bağlantılar bulunabilir. Bu üçüncü taraf sitelerin gizlilik politikaları hakkında kontrolümüz yoktur ve bu sitelerin içeriğinden sorumlu değiliz.</p>
+
+<h2>Değişiklikler</h2>
+
+<p>Bu gizlilik politikası, herhangi bir zamanda güncellenebilir. Yeni politikaların yürürlüğe girmesi için web sitemizi düzenli olarak ziyaret etmeniz önerilir.</p>
+
+<h2>İletişim</h2>
+
+<p>Herhangi bir sorunuz veya bu gizlilik politikası ile ilgili herhangi bir geri bildiriminiz varsa, lütfen bizimle iletişime geçmekten çekinmeyin.</p>
+
+<p>@novabookshop.com</p>
+        </div>
+    </div>
+</section>
+
+<div class="basket__modal">
+    <div class="basket__items">
+        <i class="bi bi-x" onclick="toggleModal()"></i>
+        <h2 class="basket__title">SEPETİNİZ</h2>
+        <ul class="basket__list">
+            <li class="basket__item">Sepetinizde ürün bulunmamaktadir.</li>
+        </ul>
+        <div class="basket__total">
+            <span class="fw-bold mb-3 fs-4 total__price"></span>
+            <button class="btn__purple" id="checkoutButton"><a href="payment.html">CHECKOUT</a></button>
+        </div>
+    </div>
+</div>
+
+<script src="./assets/jquery/jquery.min.js"></script>
+<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="./assets/toastr/toastr.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>

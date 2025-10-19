@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova | Hakkımızda</title>
+  <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./assets/toastr/toastr.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" />
+  <style>
+    .profile {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .profile img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .profile h2 {
+      margin-top: 1rem;
+    }
+    .profile p {
+      margin-top: 0.5rem;
+    }
+    .social-icons {
+      margin-top: 1rem;
+    }
+    .social-icons a {
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .social-icons i {
+      font-size: 1.5rem;
+    }
+    .navbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 120px !important;
+  width: 80% !important;
+  margin-left: 10% !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+}
+
+.navbar-brand {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navbar-brand .logo {
+  width: 100px !important;
+  height: auto !important;
+  margin-right: 5px !important;
+}
+
+.navbar-brand .title {
+  font-weight: bold !important;
+  color: var(--purple) !important;
+  font-size: 1.5rem !important;
+  margin: 0 !important;
+}
+
+.menu {
+  list-style-type: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  font-size: 20px !important;
+  cursor: pointer !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.menu li {
+  margin: 0 10px !important;
+}
+
+.menu a {
+  text-decoration: none !important;
+  color: var(--pink) !important;
+}
+
+.menu .active {
+  color: var(--pink) !important;
+  font-weight: bold !important;
+}
+
+.menu__icons {
+  list-style-type: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  font-size: 20px !important;
+  color: var(--pink) !important;
+  cursor: pointer !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.menu__icons li {
+  margin: 0 10px !important;
+  list-style: none !important;
+}
+
+.menu__icons .search {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.menu__icons #search-input {
+  display: inline-block !important;
+  padding: 5px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  margin-left: 5px !important;
+  width: 150px !important;
+}
+
+.basket__icon {
+  position: relative !important;
+}
+
+.basket__count {
+  position: absolute !important;
+  right: -0.7rem !important;
+  bottom: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+  background-color: var(--black) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+    .about-us {
+  background: linear-gradient(135deg, #f5f3ff 0%, #fef3ff 100%);
+  padding: 60px 20px;
+  min-height: 600px;
+  text-align: center;
+}
+
+.about-title {
+  font-weight: bold;
+  font-size: 3rem;
+  color: var(--purple);
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 15px;
+  position: relative;
+  display: block;
+}
+
+.about-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  border-radius: 2px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-content {
+  background: white;
+  padding: 60px 80px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(153, 113, 206, 0.2);
+  text-align: justify;
+  margin: 0 auto;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  line-height: 2;
+  color: #5c6a79;
+  margin-bottom: 2rem;
+}
+
+.about-content p:first-child::first-letter {
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--purple);
+  float: left;
+  line-height: 0.8;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+  <div class="navbar-brand">
+    <img src="./assets/images/logo2.png" alt="Nova Logo" class="logo">
+    <h2 class="title">Nova Bookshop</h2>
+  </div>
+  <ul class="menu">
+    <li><a href="index.html">KİTAPLAR</a></li>
+    <li><a href="yorum.html">YORUM</a></li>
+    <li><a href="hakkimizda.html" class="active">HAKKIMIZDA</a></li>
+    <li><a href="gizlilik.html">GİZLİLİK</a></li>
+  </ul>
+  <ul class="menu__icons">
+    <li><i class="bi bi-person" id="user-icon"></i></li>
+    <li class="search">
+      <i class="bi bi-search"></i>
+      <input type="text" id="search-input" placeholder="Ara...">
+    </li>
+    <li class="basket__icon" onclick="toggleModal()">
+      <i class="bi bi-bag"></i>
+      <span class="basket__count"></span>
+    </li>
+  </ul>
+</nav>
+  <section class="about-us my-5">
+  <h1 class="about-title text-center mb-5">Hakkımızda</h1>
+  <div class="container">
+    <div class="about-content">
+      <p>Nova Kitap Mağazası, kitap severlere en iyi kitapları sunmayı amaçlayan bir online kitap mağazasıdır. Misyonumuz, okuma alışkanlığını teşvik etmek ve kitapları herkes için erişilebilir kılmaktır.</p>
+      <p>Her türde geniş bir kitap yelpazesi sunuyoruz: romanlar, bilim-kurgu, romantik, fantastik ve daha fazlası. Ayrıca, sesli kitaplar ve hediye seçeneklerimizle de hizmetinizdeyiz.</p>
+      <p>Nova Kitap Mağazası, müşteri memnuniyetini ön planda tutar ve kaliteli hizmet sunar. Siz değerli müşterilerimize en iyi alışveriş deneyimini yaşatmak için buradayız.</p>
+    </div>
+  </div>
+</section>
+  <script
+    type="text/javascript"
+    src="assets/bootstrap/js/bootstrap.bundle.min.js"
+  ></script>
+      <div class="row">
+        <div class="col-md-6 profile">
+          <img src="assets/images/feroskofoto.jpg" alt="Ferhan ÇIBIK">
+          <h2 class="profile">Ferhan ÇIBIK</h2>
+          <p>
+            <ul>
+                <li>Isparta Uygulamalı Bilimler Üniversitesi 1.sınıf Bilgisayar Mühendisliği öğrencisi.</li>
+                <li>Okul numarası:2312721038</li>
+                <li>Kitap okumaya bayılır.</li>
+                <li>Kırıkkale'de yaşıyor ama Çorumlu.</li>
+            </ul>
+          </p>
+          <div class="social-icons">
+            <a href="https://instagram.com/ferhaanl._" target="_blank"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 profile">
+          <img src="assets/images/şevofoto.jpg" alt="Şevval ÇOBAN">
+          <h2 class="profile">Şevval ÇOBAN</h2>
+          <p>
+            <ul>
+                <li>Isparta Uygulamalı Bilimler Üniversitesi 1.sınıf Bilgisayar Mühendisliği öğrencisi.</li>
+                <li>Okul numarası:2312721038</li>
+                <li>Afyonkarahisarlı ve orada yaşıyor.</li>
+            </ul>
+          </p>
+          <div class="social-icons">
+            <a href="https://instagram.com/sevval_cobnn" target="_blank"><i class="bi bi-instagram"></i></a>
+         </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script
+    type="text/javascript"
+    src="assets/bootstrap/js/bootstrap.bundle.min.js"
+  ></script>
+  <script src="./assets/jquery/jquery.min.js"></script>
+  <script src="./assets/toastr/toastr.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
+
