@@ -77,17 +77,33 @@ const sampleComments = [
 ];
 
 const getBooks = async () => {
-    const res = await fetch("./products.json");
-    const books = await res.json();
-    bookList = books;
-    displayBookDetails();
-    displayComments();
+    try {
+        console.log('Kitaplar yükleniyor...');
+        const res = await fetch("./products.json");
+        console.log('Fetch response:', res.status);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
+        const books = await res.json();
+        console.log('Kitaplar yüklendi:', books.length, 'kitap');
+        bookList = books;
+        displayBookDetails();
+        displayComments();
+    } catch (error) {
+        console.error('Kitaplar yüklenirken hata:', error);
+        toastr.error('Kitap bilgileri yüklenemedi!');
+    }
 };
 
 const displayBookDetails = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
+    console.log('URL parametrelerinden bookId:', bookId);
+    
     const book = bookList.find(book => book.id == bookId);
+    console.log('Bulunan kitap:', book);
 
     if (book) {
         document.getElementById('book-img').src = book.imgSource;
@@ -99,6 +115,10 @@ const displayBookDetails = () => {
         document.title = book.name + ' | Nova Bookshop';
 
         document.getElementById('book-stars').innerHTML = createBookStars(book.starRate);
+        console.log('Kitap bilgileri DOM\'a yazıldı');
+    } else {
+        console.error('Kitap bulunamadı! bookId:', bookId);
+        toastr.error('Kitap bulunamadı!');
     }
 };
 
@@ -206,6 +226,7 @@ const addBookToBasket = () => {
     }
 };
 
-window.onload = function () {
+// Sayfa yüklendiğinde kitap bilgilerini getir
+document.addEventListener('DOMContentLoaded', () => {
     getBooks();
-};
+});
