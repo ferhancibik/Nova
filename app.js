@@ -648,12 +648,31 @@ Her zaman Türkçe cevap ver.`;
     
     const data = await response.json();
     console.log('API Response:', data);
+    console.log('API Response JSON:', JSON.stringify(data, null, 2));
     
-    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-      throw new Error('API\'den geçersiz yanıt alındı');
+    // Farklı response formatlarını kontrol et
+    let aiResponse;
+    
+    if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
+      // Standart format
+      aiResponse = data.candidates[0].content.parts[0].text;
+    } else if (data.text) {
+      // Alternatif format 1
+      aiResponse = data.text;
+    } else if (data.response) {
+      // Alternatif format 2
+      aiResponse = data.response;
+    } else if (data.output) {
+      // Alternatif format 3
+      aiResponse = data.output;
+    } else {
+      console.error('Beklenmeyen response formatı:', data);
+      throw new Error('API\'den geçersiz yanıt alındı. Response: ' + JSON.stringify(data));
     }
     
-    const aiResponse = data.candidates[0].content.parts[0].text;
+    if (!aiResponse) {
+      throw new Error('AI cevabı boş geldi');
+    }
     
     // Loading'i kaldır
     removeTypingIndicator();
