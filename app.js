@@ -547,7 +547,7 @@ window.onload = function () {
 // ============================================
 
 const GEMINI_API_KEY = 'AIzaSyDaR7mXRU2bvO_NjhbLDHfrkCRPnMG5H1E';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
 let chatHistory = [];
 
