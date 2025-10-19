@@ -1,4 +1,4 @@
-let bookList = [];
+let detailBookList = [];
 
 // Örnek yorumlar havuzu
 const sampleComments = [
@@ -88,7 +88,7 @@ const getBooks = async () => {
         
         const books = await res.json();
         console.log('Kitaplar yüklendi:', books.length, 'kitap');
-        bookList = books;
+        detailBookList = books;
         displayBookDetails();
         displayComments();
     } catch (error) {
@@ -102,7 +102,7 @@ const displayBookDetails = () => {
     const bookId = urlParams.get('bookId');
     console.log('URL parametrelerinden bookId:', bookId);
     
-    const book = bookList.find(book => book.id == bookId);
+    const book = detailBookList.find(book => book.id == bookId);
     console.log('Bulunan kitap:', book);
 
     if (book) {
@@ -200,7 +200,7 @@ const getRandomComments = (bookId, count) => {
 const addBookToBasket = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
-    let findedBook = bookList.find((book) => book.id == bookId);
+    let findedBook = detailBookList.find((book) => book.id == bookId);
     if (findedBook) {
         let basketList = JSON.parse(localStorage.getItem("basketList")) || [];
         const basketAlreadyIndex = basketList.findIndex(
